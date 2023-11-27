@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/Widgets/AddNote.dart';
 import 'package:notes_app/Widgets/AppBar.dart';
-import 'package:notes_app/Widgets/Notes.dart';
 
-class NotesView extends StatelessWidget {
+import '../Widgets/NotesListView.dart';
+
+class NotesView extends StatefulWidget {
   const NotesView({super.key});
 
+  @override
+  State<NotesView> createState() => _NotesViewState();
+}
+
+class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +22,8 @@ class NotesView extends StatelessWidget {
             child: Column(
               children: [
                 // AppBar
-                AppBar_Widget(),
+                AppBar_Widget(
+                    Titel: "Notes", icon: Icon(Icons.search, size: 25)),
                 SizedBox(
                   height: 20,
                 ),
@@ -28,25 +36,20 @@ class NotesView extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => SingleChildScrollView(child: AddNote()),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+          );
+        },
         child: Icon(Icons.add),
         backgroundColor: Colors.white.withOpacity(1),
-      ),
-    );
-  }
-}
-
-class NotesListView extends StatelessWidget {
-  const NotesListView({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) => Note_Widget(),
       ),
     );
   }
