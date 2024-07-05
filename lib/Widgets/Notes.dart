@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:notes_app/Bloc/View_Note_Cubit/view_note_cubit.dart';
+import 'package:notes_app/Models/NoteModel.dart';
 import 'package:notes_app/Views/EditNotes.dart';
 
 class Note_Widget extends StatelessWidget {
-  const Note_Widget({super.key});
-
+  const Note_Widget({super.key, required this.noteModel, required this.index});
+  final int index;
+  final NoteModel noteModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -31,24 +36,29 @@ class Note_Widget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Flutter tips",
+                    Text(noteModel.Title,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 28,
                             fontWeight: FontWeight.w500)),
                     IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.black,
-                          size: 27,
-                        ))
+                      onPressed: () {
+                        Hive.box<NoteModel>("NotesBox").deleteAt(index);
+
+                        BlocProvider.of<ViewNoteCubit>(context).ViewNotes();
+                      },
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.black,
+                        size: 27,
+                      ),
+                    )
                   ],
                 ),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    "Build your Career with \nMohamed Sobhy",
+                    "${noteModel.SubTitle}",
                     style: TextStyle(
                       color: Colors.black.withOpacity(.5),
                       fontSize: 16.5,
@@ -58,7 +68,7 @@ class Note_Widget extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Text(
-                    "May 21,2023",
+                    noteModel.Date,
                     style: TextStyle(
                       color: Colors.black.withOpacity(.5),
                       fontSize: 15,

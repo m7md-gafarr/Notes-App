@@ -23,7 +23,10 @@ class _NotesViewState extends State<NotesView> {
               children: [
                 // AppBar
                 AppBar_Widget(
-                    Titel: "Notes", icon: Icon(Icons.search, size: 25)),
+                  Titel: "Notes",
+                  icon: Icon(Icons.search, size: 25),
+                  onTap: () {},
+                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -40,7 +43,9 @@ class _NotesViewState extends State<NotesView> {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            builder: (context) => SingleChildScrollView(child: AddNote()),
+            builder: (context) => SingleChildScrollView(
+              child: AddNote(),
+            ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 top: Radius.circular(20),
@@ -49,7 +54,7 @@ class _NotesViewState extends State<NotesView> {
           );
         },
         child: Icon(Icons.add),
-        backgroundColor: Colors.white.withOpacity(1),
+        backgroundColor: Colors.brown[700],
       ),
     );
   }

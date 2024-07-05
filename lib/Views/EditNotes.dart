@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:notes_app/Models/NoteModel.dart';
 import 'package:notes_app/Widgets/AddNote.dart';
 import 'package:notes_app/Widgets/AppBar.dart';
 
@@ -12,7 +14,11 @@ class EditNote extends StatelessWidget {
         padding: const EdgeInsets.only(top: 5, left: 13, right: 13),
         child: Column(
           children: [
-            AppBar_Widget(Titel: "Edit Note", icon: Icon(Icons.done, size: 25)),
+            AppBar_Widget(
+              Titel: "Edit Note",
+              icon: Icon(Icons.done, size: 25),
+              onTap: () {},
+            ),
             SizedBox(
               height: 50,
             ),
